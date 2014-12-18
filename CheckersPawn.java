@@ -11,7 +11,8 @@ public class CheckersPawn implements Piece {
 	private int rowPosition;
 	private int columnPosition;
 	private pieceColor color;
-	private MoveList moveList;
+	private CheckersPawnMoveList moveList;
+	private int endRow = 0; //not used now, maybe later
 	
 	/**
 	 * Creates a new pawn in a certain location on the board with a certain color (team)
@@ -23,7 +24,13 @@ public class CheckersPawn implements Piece {
 		this.rowPosition = rowPosition;
 		this.columnPosition = columnPosition;
 		this.color = color;
-		moveList.createMoveList();
+		moveList = new CheckersPawnMoveList(color);
+		if (color == Piece.pieceColor.Black) {
+			endRow = 7;
+		}
+		else {
+			endRow = 0;
+		}
 	}
 	
 	
@@ -34,8 +41,15 @@ public class CheckersPawn implements Piece {
 
 	
 	@Override
-	public boolean move(int rowPosition, int columnPosition, ArrayList<Piece> whitePieces, ArrayList<Piece> blackPieces) {
-		return false;
+	public ArrayList<Integer> move(int rowPosition, int columnPosition) {
+		if (moveList.isValidMove(rowPosition, columnPosition)) {
+			int arrayListLocation = moveList.findMove(rowPosition, columnPosition);
+			ArrayList<Integer> captureList = moveList.getCapture(arrayListLocation);
+			this.rowPosition = rowPosition;
+			this.columnPosition = columnPosition;
+			return captureList;
+		}
+		return null;
 		
 	}
 
@@ -56,6 +70,34 @@ public class CheckersPawn implements Piece {
 			return "w";
 		}
 		return "b";
+	}
+
+
+	@Override
+	public MoveList getMoveList() {
+		try {
+			return moveList;
+		} 
+		catch (NullPointerException e) {
+			System.out.println("MoveList not updated yet!");
+		}
+		return null;
+	}
+	
+	@Override
+	public void updateMoveList(ArrayList<Piece> myPieces, ArrayList<Piece> enemyPieces) {
+		moveList.updateMoveList(rowPosition, columnPosition, myPieces, enemyPieces);
+	}
+	
+	/**
+	 * Checks if the piece is at the end of the row (to be kinged)
+	 * @return true if it is at the end of the row, false otherwise
+	 */
+	public boolean atEndRow() {
+		if (rowPosition == endRow) {
+			return true;
+		}
+		return false;
 	}
 
 
