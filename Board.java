@@ -10,7 +10,7 @@ public class Board {
 
 	public final static int boardWidth = 8;
 	public final static int boardHeight = 8;
-	public final static int piecesCheckers = 12;
+	public final static int piecesCheckers = 8;
 	private String[][] board;
 	private ArrayList<Piece> whitePieces;
 	private ArrayList<Piece> blackPieces;
@@ -23,6 +23,38 @@ public class Board {
 	public ArrayList<Piece> getBlackPieces() {
 		return blackPieces;
 	}
+	
+	
+	/**
+	 * Gives the type of pieces depending on what team you are alligned to
+	 * @param color the team color the player is aligned to
+	 * @return the array list of Pieces that are aligned to the appropriate team (either white or black pieces)
+	 */
+	public ArrayList<Piece> getTeamPieces(Piece.pieceColor color) {
+		if (color == Piece.pieceColor.White) {
+			return whitePieces;
+		}
+		else if (color == Piece.pieceColor.Black) {
+			return blackPieces;
+		}
+		return null;
+	}
+	
+	/**
+	 * Gives the type of pieces of the enemy depending on what team you are alligned to
+	 * @param color the team color the player is aligned to
+	 * @return the array list of Pieces that are aligned to the enemy team (white if you are black, black if you are white)
+	 */
+	public ArrayList<Piece> getEnemyPieces(Piece.pieceColor color) {
+		if (color == Piece.pieceColor.White) {
+			return blackPieces;
+		}
+		else if (color == Piece.pieceColor.Black) {
+			return whitePieces;
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * Returns the white team's pieces
@@ -48,8 +80,8 @@ public class Board {
 	 * Resets the board to be empty
 	 */
 	private void resetBoard() {
-		for (int i = 0; i < boardWidth; i++) {
-			for (int j = 0; j < boardHeight; j++) {
+		for (int i = 0; i < boardHeight; i++) {
+			for (int j = 0; j < boardWidth; j++) {
 				board[i][j] = " ";
 			}
 		}
@@ -63,33 +95,35 @@ public class Board {
 	 */
 	public void setDefaultCheckersBoard() {
 		
-		//White pieces
-		whitePieces.add(new CheckersPawn(7, 6, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(7, 4, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(7, 2, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(7, 0, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(6, 7, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(6, 5, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(6, 3, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(6, 1, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(5, 6, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(5, 4, Piece.pieceColor.White));
-		whitePieces.add(new CheckersPawn(5, 2, Piece.pieceColor.White));
+		
+		//Pieces put for testing only
 		whitePieces.add(new CheckersPawn(5, 0, Piece.pieceColor.White));
 		
-		//Black pieces
-		blackPieces.add(new CheckersPawn(2, 7, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(2, 5, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(4, 1, Piece.pieceColor.Black));
 		blackPieces.add(new CheckersPawn(2, 3, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(2, 1, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(1, 6, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(1, 4, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(1, 2, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(1, 0, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(0, 7, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(0, 5, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(0, 3, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));	
+		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));
+		
+		
+//		//White pieces
+//		whitePieces.add(new CheckersPawn(7, 6, Piece.pieceColor.White));
+//		whitePieces.add(new CheckersPawn(7, 4, Piece.pieceColor.White));
+//		whitePieces.add(new CheckersPawn(7, 2, Piece.pieceColor.White));
+//		whitePieces.add(new CheckersPawn(7, 0, Piece.pieceColor.White));
+//		whitePieces.add(new CheckersPawn(6, 7, Piece.pieceColor.White));
+//		whitePieces.add(new CheckersPawn(6, 5, Piece.pieceColor.White));
+//		whitePieces.add(new CheckersPawn(6, 3, Piece.pieceColor.White));
+//		whitePieces.add(new CheckersPawn(6, 1, Piece.pieceColor.White));
+//
+//		
+//		//Black pieces
+//		blackPieces.add(new CheckersPawn(1, 6, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(1, 4, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(1, 2, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(1, 0, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(0, 7, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(0, 5, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(0, 3, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));	
 		
 	}
 	
@@ -122,4 +156,63 @@ public class Board {
 			board[blackPieces.get(i).getRowPosition()][blackPieces.get(i).getColumnPosition()] = blackPieces.get(i).getPieceRepresentation();	
 		}
 	}
+	
+	/**
+	 * Removes a piece from the board
+	 * @param pieceRow the row of the piece in the board
+	 * @param pieceColumn the column of the piece to be removed
+	 * @param color the color (team) the piece is
+	 */
+	public void removePiece(int pieceRow, int pieceColumn, Piece.pieceColor color) {
+	//	System.out.println(pieceRow + ", " + pieceColumn); ~~~What piece should be removed
+		if (color == Piece.pieceColor.White) {
+			for (int i = 0; i < whitePieces.size(); i++) {
+				if (whitePieces.get(i).getRowPosition() == pieceRow && whitePieces.get(i).getColumnPosition() == pieceColumn) {
+					whitePieces.remove(i);
+					break;
+				}
+			}
+		}
+		else {
+			for (int i = 0; i < blackPieces.size(); i++) {
+				if (blackPieces.get(i).getRowPosition() == pieceRow && blackPieces.get(i).getColumnPosition() == pieceColumn) {
+					blackPieces.remove(i);
+					break;
+				}
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * Changes the piece from a pawn to a king
+	 * @param pawnPiece the pawn piece to be changed
+	 */
+	public void kingPiece(CheckersPawn pawnPiece) {
+		int row = pawnPiece.getRowPosition();
+		int column = pawnPiece.getColumnPosition();
+		Piece.pieceColor color = pawnPiece.getColor();
+		removePiece(row, column, color);
+		addPiece(new CheckersKing(row, column, color));
+		
+	}
+	
+	
+	/**
+	 * Adds a piece to a team and puts it on the board
+	 * @param piece the piece to be added to a team and put on the board
+	 */
+	public void addPiece(Piece piece) {
+		if (piece.getColor() == Piece.pieceColor.White) {
+			whitePieces.add(piece);
+		}
+		else {
+			blackPieces.add(piece);
+		}
+	}
+	
+	
+	
+	
 }
