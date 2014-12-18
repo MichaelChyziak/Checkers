@@ -21,17 +21,23 @@ public class CheckersGame {
 	 * Creates 2 players and the players take turns until the game is over
 	 */
 	private void runGame() {
-		Player p1 = new Player(Piece.pieceColor.White);
-		Player p2 = new Player(Piece.pieceColor.Black);
+		Player p1 = new Player(Piece.pieceColor.White, board);
+		Player p2 = new Player(Piece.pieceColor.Black, board);
+		board.showBoard();
+	
 		while (!isGameOver()) {
 			p1.turn();
+			board.showBoard();
 			if (!isGameOver()) {
 				p2.turn();
+				board.showBoard();
 			}
 			else {
 				break;
 			}
+
 		}
+
 	}
 	
 	/**
