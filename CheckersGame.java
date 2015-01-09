@@ -22,16 +22,27 @@ public class CheckersGame {
 	 */
 	private void runGame() {
 		Player p1 = new Player(Piece.pieceColor.White, board);
-		Player p2 = new Player(Piece.pieceColor.Black, board);
+		AIPlayer p2 = new AIPlayer(Piece.pieceColor.Black, board);
+		
 		board.showBoard();
-	
+		System.out.println();
+		
 		while (!isGameOver()) {
-			p1.turn();
+			
+			p1.turn(board);
+			board = p1.getBoard();
 			board.showBoard();
+			System.out.println();
+			
 			if (!isGameOver()) {
-				p2.turn();
+
+				p2.turn(board);
+				board = p2.getBoard();
 				board.showBoard();
+				System.out.println();
 			}
+			
+			
 			else {
 				break;
 			}
