@@ -10,8 +10,8 @@ import java.util.Scanner;
  */
 public class Player {
 
-	private Piece.pieceColor color;
-	private Board board;
+	protected Piece.pieceColor color;
+	protected Board board;
 	
 	/**
 	 * Assigns the player to a certain color (team) and gets the current board
@@ -24,11 +24,14 @@ public class Player {
 	/**
 	 * Allows a player to make a turn
 	 */
-	public void turn() {
+	public void turn(Board board) {
+		
+		this.board = board;
+		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
-		ArrayList<Piece> teamPieces = board.getTeamPieces(color);
-		ArrayList<Piece> enemyPieces = board.getEnemyPieces(color);
+		ArrayList<Piece> teamPieces = this.board.getTeamPieces(color);
+		ArrayList<Piece> enemyPieces = this.board.getEnemyPieces(color);
 		
 		Piece pieceChosen = null;
 		
@@ -95,7 +98,7 @@ public class Player {
 				//delete each captured piece (***Remember, pieces get shifted when deletion happens below them)
 				for (int removed = 0; capturedPieces.size() > 0; removed++) {
 		
-					board.removePiece(enemyPieces.get(capturedPieces.get(0) - removed).getRowPosition(), 
+					this.board.removePiece(enemyPieces.get(capturedPieces.get(0) - removed).getRowPosition(), 
 							enemyPieces.get(capturedPieces.get(0) - removed).getColumnPosition(), Piece.getOppositeColor(color));
 					capturedPieces.remove(0);	
 					
@@ -104,7 +107,6 @@ public class Player {
 		}
 		
 		checkIfKinged(pieceChosen);
-	
 		
 	}
 	
@@ -125,6 +127,25 @@ public class Player {
 	 */
 	public Piece.pieceColor getColor() {
 		return color;
+	}
+	
+	
+	/**
+	 * Returns the game board
+	 * @return the game board
+	 */
+	public Board getBoard() {
+		return board;
+	}
+	
+	
+	
+	/**
+	 * Sets the board to the board given
+	 * @param board the new board to change to
+	 */
+	protected void setBoard(Board board) {
+		this.board = board;
 	}
 
 }
