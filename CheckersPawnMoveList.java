@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CheckersPawnMoveList implements MoveList {
 
 	//lists of int arrays where the 1st element is the row it can move to, and the 2nd element is the column it can move to, 
-	//1rd is its priority (0 meaning no jump, 1 meaning jump), 2nd and onward being the elements it jumps over (none if jump priority is 0)
+	//for capture list, 1st is its priority (0 meaning no jump, 1 meaning jump), 2nd and onward being the elements it jumps over (none if jump priority is 0)
 	private ArrayList<int[]> moveList;
 	private ArrayList<ArrayList<Integer>> captureList;
 	private int rowMoveType[];
@@ -58,6 +58,7 @@ public class CheckersPawnMoveList implements MoveList {
 		checkForAllyPieces(currentRow, currentColumn, myPieces);
 		checkForEnemyJump(currentRow, currentColumn, myPieces, enemyPieces, 0);
 	}
+
 	
 	/**
 	 * Resets our move list and capture list to empty lists
