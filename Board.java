@@ -14,14 +14,31 @@ public class Board {
 	private String[][] board;
 	private ArrayList<Piece> whitePieces;
 	private ArrayList<Piece> blackPieces;
-	
-	
+
 	/**
 	 * Returns the black team's pieces
 	 * @return the array list of pieces on the black team
 	 */
 	public ArrayList<Piece> getBlackPieces() {
 		return blackPieces;
+	}
+	
+	
+	public Board(ArrayList<Piece> whitePieces, ArrayList<Piece> blackPieces) {
+		board = new String[boardHeight][boardWidth];
+		this.whitePieces = new ArrayList<Piece>();
+		this.blackPieces = new ArrayList<Piece>();
+		for (int i = 0; i < whitePieces.size(); i++) {
+			int row = whitePieces.get(i).getRowPosition();
+			int column = whitePieces.get(i).getColumnPosition();
+			this.whitePieces.add(new CheckersPawn(row, column, Piece.pieceColor.White));
+		}
+		for (int i = 0; i < blackPieces.size(); i++) {
+			int row = blackPieces.get(i).getRowPosition();
+			int column = blackPieces.get(i).getColumnPosition();
+			this.blackPieces.add(new CheckersPawn(row, column, Piece.pieceColor.Black));
+		}
+		resetBoard();
 	}
 	
 	
@@ -96,34 +113,42 @@ public class Board {
 	public void setDefaultCheckersBoard() {
 		
 		
-		//Pieces put for testing only
-		whitePieces.add(new CheckersPawn(5, 0, Piece.pieceColor.White));
-		
-		blackPieces.add(new CheckersPawn(4, 1, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(2, 3, Piece.pieceColor.Black));
-		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));
-		
-		
-//		//White pieces
-//		whitePieces.add(new CheckersPawn(7, 6, Piece.pieceColor.White));
-//		whitePieces.add(new CheckersPawn(7, 4, Piece.pieceColor.White));
-//		whitePieces.add(new CheckersPawn(7, 2, Piece.pieceColor.White));
-//		whitePieces.add(new CheckersPawn(7, 0, Piece.pieceColor.White));
-//		whitePieces.add(new CheckersPawn(6, 7, Piece.pieceColor.White));
-//		whitePieces.add(new CheckersPawn(6, 5, Piece.pieceColor.White));
-//		whitePieces.add(new CheckersPawn(6, 3, Piece.pieceColor.White));
-//		whitePieces.add(new CheckersPawn(6, 1, Piece.pieceColor.White));
-//
+//		//Pieces put for testing only 1
+//		whitePieces.add(new CheckersPawn(5, 0, Piece.pieceColor.White));
 //		
-//		//Black pieces
-//		blackPieces.add(new CheckersPawn(1, 6, Piece.pieceColor.Black));
-//		blackPieces.add(new CheckersPawn(1, 4, Piece.pieceColor.Black));
-//		blackPieces.add(new CheckersPawn(1, 2, Piece.pieceColor.Black));
-//		blackPieces.add(new CheckersPawn(1, 0, Piece.pieceColor.Black));
-//		blackPieces.add(new CheckersPawn(0, 7, Piece.pieceColor.Black));
-//		blackPieces.add(new CheckersPawn(0, 5, Piece.pieceColor.Black));
-//		blackPieces.add(new CheckersPawn(0, 3, Piece.pieceColor.Black));
-//		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));	
+//		blackPieces.add(new CheckersPawn(4, 1, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(2, 3, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(2, 6, Piece.pieceColor.Black));
+		
+		
+		
+//		//Pieces put for testing only 2
+//		whitePieces.add(new CheckersPawn(5, 0, Piece.pieceColor.White));
+//		
+//		blackPieces.add(new CheckersPawn(3, 2, Piece.pieceColor.Black));
+//		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));
+		
+		//White pieces
+		whitePieces.add(new CheckersPawn(7, 6, Piece.pieceColor.White));
+		whitePieces.add(new CheckersPawn(7, 4, Piece.pieceColor.White));
+		whitePieces.add(new CheckersPawn(7, 2, Piece.pieceColor.White));
+		whitePieces.add(new CheckersPawn(7, 0, Piece.pieceColor.White));
+		whitePieces.add(new CheckersPawn(6, 7, Piece.pieceColor.White));
+		whitePieces.add(new CheckersPawn(6, 5, Piece.pieceColor.White));
+		whitePieces.add(new CheckersPawn(6, 3, Piece.pieceColor.White));
+		whitePieces.add(new CheckersPawn(6, 1, Piece.pieceColor.White));
+
+		
+		//Black pieces
+		blackPieces.add(new CheckersPawn(1, 6, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(1, 4, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(1, 2, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(1, 0, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(0, 7, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(0, 5, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(0, 3, Piece.pieceColor.Black));
+		blackPieces.add(new CheckersPawn(0, 1, Piece.pieceColor.Black));	
 		
 	}
 	
@@ -153,6 +178,14 @@ public class Board {
 			board[whitePieces.get(i).getRowPosition()][whitePieces.get(i).getColumnPosition()] = whitePieces.get(i).getPieceRepresentation();
 		}
 		for (int i = 0; i < blackPieces.size(); i++) {
+			
+//			//Debugging stuff
+//			System.out.println("i:" + i);
+//			System.out.println("size:" + blackPieces.size());
+//			System.out.println("row:" + blackPieces.get(i).getRowPosition());	
+//			System.out.println("column:" + blackPieces.get(i).getColumnPosition());
+//			System.out.println(blackPieces.get(i).getPieceRepresentation());	
+			
 			board[blackPieces.get(i).getRowPosition()][blackPieces.get(i).getColumnPosition()] = blackPieces.get(i).getPieceRepresentation();	
 		}
 	}
@@ -212,7 +245,12 @@ public class Board {
 		}
 	}
 	
-	
-	
+	/**
+	 * Returns the 2d string array of the board
+	 * @return the 2d string array of the board
+	 */
+	public String[][] getBoard() {
+		return board;
+	}
 	
 }
